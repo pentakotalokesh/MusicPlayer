@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
 from player.forms import Addsong, CreateUser
 from . models import Song
@@ -16,7 +17,7 @@ def index(request):
         return render(request,'player/index.html',{'songs':songs,'psongs':privatesongs,'protectedsongs':protectedsongs})
     else:
         return redirect('login')
-    
+@csrf_exempt  
 def login_page(request):
     if request.user.is_authenticated:
         return redirect('index')
@@ -33,7 +34,7 @@ def login_page(request):
             else:
                  messages.error(request,'Invalid login')
     return render(request,'player/login.html');
-
+@csrf_exempt
 def register(request):
     if request.user.is_authenticated:
         return redirect('index')
@@ -52,6 +53,7 @@ def logout_page(request):
     return redirect('login')
 
 @login_required(login_url='login')
+@csrf_exempt
 def addSong(request):
     if request.method == 'POST':
         form = Addsong(request.POST,request.FILES)
