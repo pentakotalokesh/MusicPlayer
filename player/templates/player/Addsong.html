@@ -3,10 +3,9 @@
 <div class="container">
     <div class="row text-center" style="width: 100%;">
         <h1>Add Song</h1>
-        
+        {{form.errors}}
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{form.errors}}
            {{form.as_p}}
             <button type="submit">Add</button>
         </form>
