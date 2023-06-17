@@ -25,14 +25,18 @@ def login_page(request):
         if request.method == 'POST':
             email = request.POST['email']
             password = request.POST['password']
-            email = User.objects.get(email=email.lower()).username
+            try:
+                email = User.objects.get(email=email.lower()).username
+            except:
+                messages.error(request,'User Not Found')
+                return redirect('login')
             user = authenticate(username=email,password=password)
-            print(user)
             if user is not None:
                 login(request,user)
                 return redirect('index')
             else:
                  messages.error(request,'Invalid login')
+                 return redirect('login')
     return render(request,'player/login.html');
 @csrf_exempt
 def register(request):
