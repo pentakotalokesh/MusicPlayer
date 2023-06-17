@@ -1,0 +1,65 @@
+{% extends 'main.html' %} 
+{% block content %} 
+<style>
+    .container{
+        height: 80vh;
+    }
+    .card{
+        width: 15rem;
+    }
+</style>
+<div class="container mt-3">
+    <div class="row">
+        <h1 class="p-3" >Latest</h1>
+        {% for song in songs %}
+        <div class="col-md-3">
+            <div class="card">
+                <img class="card-img-top" src="{{song.Thumbnail.url}}" alt="Card image cap">
+                <div class="card-body">
+                  <audio controls style="width: 12rem;">
+                        <source src="{{song.songFile.url}}" type="audio/ogg">
+                  </audio>
+                </div>
+              </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="row mt-3">
+        <h1>Private</h1>
+        {% for song in psongs %}
+        <div class="col-md-3">
+            <div class="card">
+                <img class="card-img-top" src="{{song.Thumbnail.url}}" alt="Card image cap">
+                <div class="card-body">
+                  <audio controls style="width: 12rem; height: 2rem;">
+                        <source src="{{song.songFile.url}}" type="audio/ogg">
+                  </audio>
+                </div>
+              </div>
+        </div>
+        {% endfor %}
+
+        <div class="row mt-3">
+            <h1>Protected</h1>
+            {% for song in protectedsongs %}
+            <div class="col-md-3">
+                <div class="card">
+                    <img class="card-img-top" src="{{song.Thumbnail.url}}" alt="Card image cap">
+                    <div class="card-body">
+                      <audio controls style="width: 12rem;">
+                            <source src="{{song.songFile.url}}" type="audio/ogg">
+                      </audio>
+                    </div>
+                  </div>
+            </div>
+            {% endfor %}
+
+        
+
+    </div>
+
+
+</div>
+
+{% endblock %}
